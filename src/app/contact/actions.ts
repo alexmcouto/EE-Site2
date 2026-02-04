@@ -21,12 +21,13 @@ const rateLimitStore = new Map<
   }
 >();
 
-function getClientIp() {
-  const forwarded = headers().get("x-forwarded-for");
+async function getClientIp() {
+  const headerList = await headers();
+  const forwarded = headerList.get("x-forwarded-for");
   if (forwarded) {
     return forwarded.split(",")[0]?.trim() ?? "unknown";
   }
-  return headers().get("x-real-ip") ?? "unknown";
+  return headerList.get("x-real-ip") ?? "unknown";
 }
 
 function isRateLimited(ip: string) {
@@ -62,7 +63,7 @@ export async function sendContact(formData: FormData): Promise<ActionState> {
     return { ok: false, message: "The submission could not be validated." };
   }
 
-  const ip = getClientIp();
+  const ip = await getClientIp();
   if (isRateLimited(ip)) {
     return { ok: false, message: "Submission limit reached. Another attempt can be made later." };
   }
