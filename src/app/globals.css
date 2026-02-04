@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    @apply border-ink-200;
+  }
+
+  body {
+    @apply bg-sand-50 text-ink-900 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply tracking-tight text-ink-900;
+  }
+
+  p {
+    @apply text-ink-700;
+  }
+
+  a {
+    @apply text-ink-900;
+  }
+}
+
+@layer components {
+  .gradient-surface {
+    background: radial-gradient(1200px 600px at 10% -10%, rgba(184, 143, 99, 0.18), transparent),
+      radial-gradient(900px 500px at 90% 0%, rgba(79, 106, 118, 0.15), transparent),
+      linear-gradient(180deg, #fbf9f5 0%, #f5f1e8 100%);
+  }
+}
